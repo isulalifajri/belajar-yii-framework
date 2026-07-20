@@ -31,6 +31,13 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => false,
+
+            'rules' => [
+                '' => 'site/index',
+
+                '<controller:\w+>' => '<controller>/index',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ],
         ],
         'cache' => [
             'class' => \yii\caching\FileCache::class,
