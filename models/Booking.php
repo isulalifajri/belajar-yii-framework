@@ -20,10 +20,33 @@ class Booking extends ActiveRecord
                     'barber_id',
                     'service_id',
                     'booking_date',
-                    'booking_time'
+                    'booking_time',
+                    'status',
                 ],
                 'required'
             ],
+
+            [['barber_id', 'service_id'], 'integer'],
+
+            [['booking_date'], 'date', 'format' => 'php:Y-m-d'],
+
+            [['booking_time'], 'date', 'format' => 'php:H:i'],
+
+            [['customer_name'], 'string', 'max' => 100],
+
+            [['status'], 'string', 'max' => 20],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'customer_name' => 'Nama Customer',
+            'barber_id' => 'Barber',
+            'service_id' => 'Service',
+            'booking_date' => 'Tanggal Booking',
+            'booking_time' => 'Jam Booking',
+            'status' => 'Status',
         ];
     }
 
