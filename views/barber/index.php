@@ -20,4 +20,28 @@ $this->title = 'Data Barber';
     <?= Html::a('Tambah Barber', ['create'], ['class' => 'btn btn-success']) ?>
 </p>
 
-<p>Halaman daftar barber akan kita buat sebentar lagi.</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>No HP</th>
+            <th>Pengalaman</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    <?php foreach ($barbers as $i => $barber): ?>
+
+        <tr>
+            <td><?= $i + 1 ?></td>
+            <td><?= Html::encode($barber->name) ?></td>
+            <td><?= Html::encode($barber->phone) ?></td>
+            <td><?= Html::encode($barber->experience) ?> Tahun</td>
+        </tr>
+
+    <?php endforeach; ?>
+
+    </tbody>
+</table>

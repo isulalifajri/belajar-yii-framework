@@ -10,7 +10,11 @@ class BarberController extends Controller
 {
     public function actionIndex()
     {
-        return $this->render('index');
+        $barbers = Barber::find()->all();
+
+        return $this->render('index', [
+            'barbers' => $barbers,
+        ]);
     }
 
     public function actionCreate()
