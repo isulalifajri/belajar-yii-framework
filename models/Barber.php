@@ -16,7 +16,7 @@ class Barber extends ActiveRecord
         return [
             [['name'], 'required'],
 
-            [['experience'], 'integer'],
+            [['experience','phone'], 'integer'],
 
             [['name'], 'string', 'max' => 100],
 
@@ -32,5 +32,13 @@ class Barber extends ActiveRecord
             'phone' => 'No. HP',
             'experience' => 'Pengalaman (Tahun)',
         ];
+    }
+
+    public function getBookings()
+    {
+        return $this->hasMany(
+            Booking::class,
+            ['barber_id' => 'id']
+        );
     }
 }

@@ -1,18 +1,41 @@
 <?php
 
-$this->title = 'Services';
+use yii\helpers\Html;
+use yii\grid\GridView;
+
+$this->title = 'Data Service';
 ?>
+<?php if (Yii::$app->session->hasFlash('success')) : ?>
 
-<h1>Daftar Layanan</h1>
+    <div class="alert alert-success">
 
-<ul>
+        <?= Yii::$app->session->getFlash('success') ?>
 
-    <li>Hair Cut</li>
+    </div>
 
-    <li>Hair Wash</li>
+<?php endif; ?>
 
-    <li>Hair Coloring</li>
+<h1><?= Html::encode($this->title) ?></h1>
 
-    <li>Shaving</li>
+<p>
+    <?= Html::a('Tambah Service', ['create'], ['class' => 'btn btn-success']) ?>
+</p>
 
-</ul>
+<?= GridView::widget([
+    'dataProvider'=>$dataProvider,
+
+    'columns'=>[
+
+        ['class'=>'yii\grid\SerialColumn'],
+
+        'name',
+
+        'price',
+
+        'duration',
+
+        ['class'=>'yii\grid\ActionColumn'],
+
+    ]
+
+]) ?>

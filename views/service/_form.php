@@ -8,9 +8,9 @@ $form = ActiveForm::begin();
 
 echo $form->field($model, 'name');
 
-echo $form->field($model, 'phone');
+echo $form->field($model, 'price');
 
-echo $form->field($model, 'experience');
+echo $form->field($model, 'duration');
 
 echo Html::submitButton(
     'Simpan',
