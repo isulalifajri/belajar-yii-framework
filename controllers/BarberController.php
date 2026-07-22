@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use Yii;
 use yii\web\Controller;
 use app\models\Barber;
 
@@ -12,21 +13,19 @@ class BarberController extends Controller
         return $this->render('index');
     }
 
-     public function actionTest()
+    public function actionCreate()
     {
         $model = new Barber();
 
-        $model->name = '';
-        $model->phone = '08123456789';
-        $model->experience = 'abc';
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-        if (!$model->validate()) {
+            Yii::$app->session->setFlash('success', 'Data barber berhasil ditambahkan.');
 
-            echo "<pre>";
-            print_r($model->errors);
-            die;
+            return $this->redirect(['index']);
         }
 
-        return "Valid";
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 }

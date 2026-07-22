@@ -1,16 +1,23 @@
 <?php
 
-$this->title = 'Barber';
+use yii\helpers\Html;
+
+$this->title = 'Data Barber';
 ?>
+<?php if (Yii::$app->session->hasFlash('success')) : ?>
 
-<h1>Daftar Barber</h1>
+    <div class="alert alert-success">
 
-<ul>
+        <?= Yii::$app->session->getFlash('success') ?>
 
-    <li>Andi</li>
+    </div>
 
-    <li>Budi</li>
+<?php endif; ?>
 
-    <li>Rian</li>
+<h1><?= Html::encode($this->title) ?></h1>
 
-</ul>
+<p>
+    <?= Html::a('Tambah Barber', ['create'], ['class' => 'btn btn-success']) ?>
+</p>
+
+<p>Halaman daftar barber akan kita buat sebentar lagi.</p>
