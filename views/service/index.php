@@ -1,12 +1,18 @@
-<div class="container mt-5">
+<?php
 
-    <h2>Daftar Layanan</h2>
+$this->title = 'Services';
+?>
 
-    <ul>
-        <li>Hair Cut</li>
-        <li>Hair Wash</li>
-        <li>Hair Coloring</li>
-        <li>Shaving</li>
-    </ul>
+<h1>Daftar Layanan</h1>
 
-</div>
+<ul>
+
+    <li>Hair Cut</li>
+
+    <li>Hair Wash</li>
+
+    <li>Hair Coloring</li>
+
+    <li>Shaving</li>
+
+</ul>

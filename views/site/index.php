@@ -1,9 +1,10 @@
-<div class="container mt-5">
-    <h1>Barbershop</h1>
+<?php
 
-    <p>Selamat datang di website Barbershop.</p>
+$this->title = 'Barbershop';
+?>
 
-    <a href="/index.php?r=service/index" class="btn btn-primary">
-        Lihat Layanan
-    </a>
-</div>
+<h1>Selamat Datang</h1>
+
+<p>
+    Website Barbershop menggunakan Yii2.
+</p>
