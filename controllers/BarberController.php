@@ -55,14 +55,52 @@ class BarberController extends Controller
 
     public function actionView($id)
     {
-        $model = Barber::findOne($id);
-
-        if ($model === null) {
-            throw new \yii\web\NotFoundHttpException('Data tidak ditemukan.');
-        }
+        $model = $this->findModel($id);
 
         return $this->render('view', [
-            'model'=>$model
+            'model' => $model,
         ]);
+    }
+
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            Yii::$app->session->setFlash(
+                'success',
+                'Data berhasil diubah.'
+            );
+
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        Yii::$app->session->setFlash(
+            'success',
+            'Data berhasil dihapus.'
+        );
+
+        return $this->redirect(['index']);
+    }
+
+    protected function findModel($id)
+    {
+        $model = Barber::findOne($id);
+
+        if ($model !== null) {
+            return $model;
+        }
+
+        throw new \yii\web\NotFoundHttpException('Data tidak ditemukan.');
     }
 }
