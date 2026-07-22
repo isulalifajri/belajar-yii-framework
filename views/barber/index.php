@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\grid\GridView;
 
 $this->title = 'Data Barber';
 ?>
@@ -20,28 +21,21 @@ $this->title = 'Data Barber';
     <?= Html::a('Tambah Barber', ['create'], ['class' => 'btn btn-success']) ?>
 </p>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>No HP</th>
-            <th>Pengalaman</th>
-        </tr>
-    </thead>
+<?= GridView::widget([
+    'dataProvider'=>$dataProvider,
 
-    <tbody>
+    'columns'=>[
 
-    <?php foreach ($barbers as $i => $barber): ?>
+        ['class'=>'yii\grid\SerialColumn'],
 
-        <tr>
-            <td><?= $i + 1 ?></td>
-            <td><?= Html::encode($barber->name) ?></td>
-            <td><?= Html::encode($barber->phone) ?></td>
-            <td><?= Html::encode($barber->experience) ?> Tahun</td>
-        </tr>
+        'name',
 
-    <?php endforeach; ?>
+        'phone',
 
-    </tbody>
-</table>
+        'experience',
+
+        ['class'=>'yii\grid\ActionColumn'],
+
+    ]
+
+]) ?>
