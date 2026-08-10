@@ -18,6 +18,7 @@ $this->title = 'Booking';
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
+    'filterModel' => $searchModel,
 
     'columns' => [
 
@@ -25,15 +26,86 @@ $this->title = 'Booking';
 
         'customer_name',
 
-        'barber_id',
+        [
+            'attribute' => 'barber_id',
+            'label' => 'Barber',
 
-        'service_id',
+            'filter' => $barbers,
 
-        'booking_date',
+            'filterInputOptions' => [
+                'class' => 'form-control',
+                'prompt' => '-- Semua Barber --',
+            ],
 
-        'booking_time',
+            'value' => function ($model) {
+                return $model->barber
+                    ? $model->barber->name
+                    : '-';
+            },
+        ],
 
-        'status',
+        [
+            'attribute' => 'service_id',
+            'label' => 'Service',
+
+            'filter' => $services,
+
+            'filterInputOptions' => [
+                'class' => 'form-control',
+                'prompt' => '-- Semua Service --',
+            ],
+
+            'value' => function ($model) {
+                return $model->service
+                    ? $model->service->name
+                    : '-';
+            },
+        ],
+
+        [
+            'label' => 'Harga',
+            'value' => function ($model) {
+                return $model->service
+                    ? Yii::$app->formatter->asCurrency(
+                        $model->service->price,
+                        'IDR'
+                    )
+                    : '-';
+            },
+        ],
+
+        [
+            'attribute' => 'booking_date',
+
+            'filterInputOptions' => [
+                'class' => 'form-control',
+                'type' => 'date',
+            ],
+        ],
+
+        [
+            'attribute' => 'booking_time',
+
+            'filterInputOptions' => [
+                'class' => 'form-control',
+                'type' => 'time',
+            ],
+        ],
+
+        [
+            'attribute' => 'status',
+
+            'filter' => [
+                'Pending' => 'Pending',
+                'Confirmed' => 'Confirmed',
+                'Cancelled' => 'Cancelled',
+            ],
+
+            'filterInputOptions' => [
+                'class' => 'form-control',
+                'prompt' => '-- Semua Status --',
+            ],
+        ],
 
         [
             'class' => 'yii\grid\ActionColumn',

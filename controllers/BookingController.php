@@ -7,6 +7,7 @@ use yii\web\Controller;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use app\models\Booking;
+use app\models\BookingSearch;
 use yii\helpers\ArrayHelper;
 use app\models\Barber;
 use app\models\Service;
@@ -15,20 +16,33 @@ class BookingController extends Controller
 {
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Booking::find(),
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ]
-        ]);
+        $searchModel = new BookingSearch();
+
+        $dataProvider = $searchModel->search(
+            Yii::$app->request->queryParams
+        );
+
+        $barbers = ArrayHelper::map(
+            Barber::find()
+                ->orderBy(['name' => SORT_ASC])
+                ->all(),
+            'id',
+            'name'
+        );
+
+        $services = ArrayHelper::map(
+            Service::find()
+                ->orderBy(['name' => SORT_ASC])
+                ->all(),
+            'id',
+            'name'
+        );
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'barbers' => $barbers,
+            'services' => $services,
         ]);
     }
 
