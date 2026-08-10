@@ -118,33 +118,11 @@ $this->title = 'Booking';
 
             'value' => function ($model) {
 
-                switch ($model->status) {
-
-                    case 'Pending':
-                        return '<span class="badge bg-warning text-dark">
-                                    Pending
-                                </span>';
-
-                    case 'Confirmed':
-                        return '<span class="badge bg-primary">
-                                    Confirmed
-                                </span>';
-
-                    case 'Completed':
-                        return '<span class="badge bg-success">
-                                    Completed
-                                </span>';
-
-                    case 'Cancelled':
-                        return '<span class="badge bg-danger">
-                                    Cancelled
-                                </span>';
-
-                    default:
-                        return '<span class="badge bg-secondary">
-                                    Unknown
-                                </span>';
-                }
+                return '<span class="badge bg-' .
+                    $model->statusBadgeClass .
+                    '">' .
+                    Html::encode($model->status) .
+                    '</span>';
             },
         ],
 

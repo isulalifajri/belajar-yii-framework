@@ -76,4 +76,14 @@ class Booking extends ActiveRecord
             ['id' => 'service_id']
         );
     }
+
+    public function getStatusBadgeClass()
+    {
+        return [
+            'Pending' => 'warning text-dark',
+            'Confirmed' => 'primary',
+            'Completed' => 'success',
+            'Cancelled' => 'danger',
+        ][$this->status] ?? 'secondary';
+    }
 }

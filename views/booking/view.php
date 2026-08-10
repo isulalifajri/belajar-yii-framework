@@ -1,51 +1,110 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\DetailView;
 
 $this->title = 'Detail Booking';
+
+$this->params['breadcrumbs'][] = [
+    'label' => 'Booking',
+    'url' => ['index']
+];
+
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h2><?= Html::encode($this->title) ?></h2>
+<div class="booking-view">
 
-<table class="table table-bordered">
+    <h1><?= Html::encode($this->title) ?></h1>
 
-    <tr>
-        <th>Customer</th>
-        <td><?= Html::encode($model->customer_name) ?></td>
-    </tr>
+    <p>
+        <?= Html::a(
+            'Kembali',
+            ['index'],
+            ['class' => 'btn btn-secondary']
+        ) ?>
 
-    <tr>
-        <th>Barber</th>
-        <td><?= Html::encode($model->barber->name) ?></td>
-    </tr>
+        <?= Html::a(
+            'Edit',
+            ['update', 'id' => $model->id],
+            ['class' => 'btn btn-primary']
+        ) ?>
+    </p>
 
-    <tr>
-        <th>Service</th>
-        <td><?= Html::encode($model->service->name) ?></td>
-    </tr>
+    <?= DetailView::widget([
+        'model' => $model,
 
-    <tr>
-        <th>Harga</th>
-        <td><?= Yii::$app->formatter->asCurrency($model->service->price, 'IDR') ?></td>
-    </tr>
+        'attributes' => [
 
-    <tr>
-        <th>Tanggal</th>
-        <td><?= Html::encode($model->booking_date) ?></td>
-    </tr>
+            'id',
 
-    <tr>
-        <th>Jam</th>
-        <td><?= Html::encode($model->booking_time) ?></td>
-    </tr>
+            'customer_name',
 
-    <tr>
-        <th>Status</th>
-        <td><?= Html::encode($model->status) ?></td>
-    </tr>
+            [
+                'label' => 'Barber',
+                'value' => $model->barber
+                    ? $model->barber->name
+                    : '-',
+            ],
 
-</table>
+            [
+                'label' => 'Service',
+                'value' => $model->service
+                    ? $model->service->name
+                    : '-',
+            ],
 
-<p>
-    <?= Html::a('Kembali', ['index'], ['class' => 'btn btn-secondary']) ?>
-</p>
+            [
+                'label' => 'Harga',
+                'value' => $model->service
+                    ? Yii::$app->formatter->asCurrency(
+                        $model->service->price,
+                        'IDR'
+                    )
+                    : '-',
+            ],
+
+            'booking_date',
+
+            'booking_time',
+
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+
+                'value' => function ($model) {
+
+                    switch ($model->status) {
+
+                        case 'Pending':
+                            return '<span class="badge bg-warning text-dark">
+                                        Pending
+                                    </span>';
+
+                        case 'Confirmed':
+                            return '<span class="badge bg-primary">
+                                        Confirmed
+                                    </span>';
+
+                        case 'Completed':
+                            return '<span class="badge bg-success">
+                                        Completed
+                                    </span>';
+
+                        case 'Cancelled':
+                            return '<span class="badge bg-danger">
+                                        Cancelled
+                                    </span>';
+
+                        default:
+                            return '<span class="badge bg-secondary">
+                                        Unknown
+                                    </span>';
+                    }
+                },
+            ],
+
+        ],
+    ]) ?>
+
+</div>
