@@ -105,6 +105,7 @@ $this->title = 'Booking';
             'filter' => [
                 'Pending' => 'Pending',
                 'Confirmed' => 'Confirmed',
+                'Completed' => 'Completed',
                 'Cancelled' => 'Cancelled',
             ],
 
@@ -112,6 +113,39 @@ $this->title = 'Booking';
                 'class' => 'form-control',
                 'prompt' => '-- Semua Status --',
             ],
+
+            'format' => 'raw',
+
+            'value' => function ($model) {
+
+                switch ($model->status) {
+
+                    case 'Pending':
+                        return '<span class="badge bg-warning text-dark">
+                                    Pending
+                                </span>';
+
+                    case 'Confirmed':
+                        return '<span class="badge bg-primary">
+                                    Confirmed
+                                </span>';
+
+                    case 'Completed':
+                        return '<span class="badge bg-success">
+                                    Completed
+                                </span>';
+
+                    case 'Cancelled':
+                        return '<span class="badge bg-danger">
+                                    Cancelled
+                                </span>';
+
+                    default:
+                        return '<span class="badge bg-secondary">
+                                    Unknown
+                                </span>';
+                }
+            },
         ],
 
         [

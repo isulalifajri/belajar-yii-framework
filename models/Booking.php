@@ -26,6 +26,17 @@ class Booking extends ActiveRecord
                 'required'
             ],
 
+            [
+                'status',
+                'in',
+                'range' => [
+                    'Pending',
+                    'Confirmed',
+                    'Completed',
+                    'Cancelled',
+                ]
+            ],
+
             [['barber_id', 'service_id'], 'integer'],
 
             [['booking_date'], 'date', 'format' => 'php:Y-m-d'],

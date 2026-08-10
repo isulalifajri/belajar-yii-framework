@@ -50,6 +50,8 @@ class BookingController extends Controller
     {
         $model = new Booking();
 
+        $model->status = 'Pending';
+
         $barbers = ArrayHelper::map(
             Barber::find()
                 ->select(['id', 'name'])

@@ -25,12 +25,15 @@ echo $form->field($model, 'booking_date')
 echo $form->field($model, 'booking_time')
     ->input('time');
 
-echo $form->field($model, 'status')
-    ->dropDownList([
-        'Pending' => 'Pending',
-        'Confirmed' => 'Confirmed',
-        'Cancelled' => 'Cancelled',
-    ]);
+if (!$model->isNewRecord) {
+    echo $form->field($model, 'status')
+        ->dropDownList([
+            'Pending' => 'Pending',
+            'Confirmed' => 'Confirmed',
+            'Completed' => 'Completed',
+            'Cancelled' => 'Cancelled',
+        ]);
+}
 
 echo Html::submitButton(
     'Simpan',
