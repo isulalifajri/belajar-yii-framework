@@ -9,7 +9,7 @@ use yii\data\ActiveDataProvider;
 
 class ServiceController extends Controller
 {
-     public function actionIndex()
+    public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Service::find(),
@@ -48,12 +48,28 @@ class ServiceController extends Controller
     {
         $model = $this->findModel($id);
 
+        $dataProvider = new ActiveDataProvider([
+            'query' => $model->getBookings()
+                ->with('barber'),
+
+            'pagination' => [
+                'pageSize' => 5,
+            ],
+
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ],
+            ],
+        ]);
+
         return $this->render('view', [
             'model' => $model,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
-        public function actionUpdate($id)
+    public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 

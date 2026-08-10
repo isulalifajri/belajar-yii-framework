@@ -29,4 +29,12 @@ class Service extends ActiveRecord
             'duration' => 'Durasi (Menit)',
         ];
     }
+
+    public function getBookings()
+    {
+        return $this->hasMany(
+            Booking::class,
+            ['service_id' => 'id']
+        );
+    }
 }

@@ -57,8 +57,24 @@ class BarberController extends Controller
     {
         $model = $this->findModel($id);
 
+        $dataProvider = new ActiveDataProvider([
+            'query' => $model->getBookings()
+                ->with('service'),
+
+            'pagination' => [
+                'pageSize' => 5,
+            ],
+
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ],
+            ],
+        ]);
+
         return $this->render('view', [
             'model' => $model,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

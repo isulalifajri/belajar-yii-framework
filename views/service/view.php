@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\grid\GridView;
 
 $this->title = $model->name;
 ?>
@@ -9,28 +10,61 @@ $this->title = $model->name;
 
 <table class="table table-bordered">
 
-<tr>
+    <tr>
+        <td>Nama Service</td>
+        <td><?= Html::encode($model->name) ?></td>
+    </tr>
 
-<td>Nama</td>
+    <tr>
+        <td>Harga</td>
+        <td>
+            Rp <?= number_format($model->price, 0, ',', '.') ?>
+        </td>
+    </tr>
 
-<td><?= Html::encode($model->name) ?></td>
+    <tr>
+        <td>Durasi</td>
+        <td>
+            <?= Html::encode($model->duration) ?> Menit
+        </td>
+    </tr>
 
-</tr>
-
-<tr>
-
-<td>Price</td>
-
-<td><?= Html::encode($model->price) ?></td>
-
-</tr>
-
-<tr>
-
-<td>Duration</td>
-
-<td><?= Html::encode($model->duration) ?> Jam</td>
-
-</tr>
+    <tr>
+        <td>Jumlah Booking</td>
+        <td>
+            <?= $model->getBookings()->count() ?>
+        </td>
+    </tr>
 
 </table>
+
+<h3 class="mt-4">Booking</h3>
+
+<?= GridView::widget([
+    'dataProvider' => $dataProvider,
+
+    'columns' => [
+
+        [
+            'class' => 'yii\grid\SerialColumn',
+        ],
+
+        'customer_name',
+
+        [
+            'label' => 'Barber',
+
+            'value' => function ($model) {
+                return $model->barber
+                    ? $model->barber->name
+                    : '-';
+            },
+        ],
+
+        'booking_date',
+
+        'booking_time',
+
+        'status',
+    ],
+]) ?>

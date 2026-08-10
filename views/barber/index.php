@@ -5,15 +5,6 @@ use yii\grid\GridView;
 
 $this->title = 'Data Barber';
 ?>
-<?php if (Yii::$app->session->hasFlash('success')) : ?>
-
-    <div class="alert alert-success">
-
-        <?= Yii::$app->session->getFlash('success') ?>
-
-    </div>
-
-<?php endif; ?>
 
 <h1><?= Html::encode($this->title) ?></h1>
 
