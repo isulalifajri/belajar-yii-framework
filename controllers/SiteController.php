@@ -15,6 +15,9 @@ use yii\mail\MailerInterface;
 use yii\web\Controller;
 use yii\web\ErrorAction;
 use yii\web\Response;
+use app\models\Barber;
+use app\models\Service;
+use app\models\Booking;
 
 class SiteController extends Controller
 {
@@ -76,9 +79,24 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
-        return $this->render('index');
+        $totalBarber = Barber::find()->count();
+
+        $totalService = Service::find()->count();
+
+        $totalBooking = Booking::find()->count();
+
+        $pendingBooking = Booking::find()
+            ->where(['status' => 'Pending'])
+            ->count();
+
+        return $this->render('index', [
+            'totalBarber' => $totalBarber,
+            'totalService' => $totalService,
+            'totalBooking' => $totalBooking,
+            'pendingBooking' => $pendingBooking,
+        ]);
     }
 
     /**

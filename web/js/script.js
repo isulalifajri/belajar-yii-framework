@@ -15,10 +15,9 @@ $(document).on(
 
             $(input)
                 .closest('form')
-                .find('input[name="BookingSearch[customer_name]"]')
-                .trigger('change');
+                .trigger('submit');
 
-        }, 500);
+        }, 100);
 
     }
 );
