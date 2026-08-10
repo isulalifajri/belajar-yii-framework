@@ -76,4 +76,9 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->password_hash;
     }
+
+    public function getRole(): string
+    {
+        return $this->role;
+    }
 }

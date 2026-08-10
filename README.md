@@ -20,3 +20,11 @@ membuat user dengan terminal
 ````
 php yii user/create admin admin123
 ````
+
+**add role**
+````
+php yii migrate/create add_role_to_user_table
+php yii migrate/create set_admin_role
+
+php yii rbac/init
+````
