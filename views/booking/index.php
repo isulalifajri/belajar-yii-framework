@@ -17,11 +17,15 @@ $this->title = 'Booking';
     ) ?>
 </p>
 
-<?php Pjax::begin(); ?>
+<?php Pjax::begin([
+    'id' => 'booking-grid',
+]); ?>
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
+
+    // 'filterOnFocusOut' => false,
 
     'columns' => [
 
