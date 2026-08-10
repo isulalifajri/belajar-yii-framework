@@ -47,33 +47,25 @@ $this->beginPage();
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/service">
-                        Services
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/barber">
-                        Barber
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/booking">
-                        Booking
-                    </a>
-                </li>
-
-                <?php if (Yii::$app->user->isGuest): ?>
+                <?php if (!Yii::$app->user->isGuest): ?>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/site/login">
-                            Login
+                        <a class="nav-link" href="/service">
+                            Services
                         </a>
                     </li>
 
-                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/barber">
+                            Barber
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/booking">
+                            Booking
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <?= Html::beginForm(
@@ -82,13 +74,23 @@ $this->beginPage();
                         ) ?>
 
                             <?= Html::submitButton(
-                                'Logout (' . Yii::$app->user->identity->username . ')',
+                                'Logout (' .
+                                Yii::$app->user->identity->username .
+                                ')',
                                 [
                                     'class' => 'nav-link btn btn-link',
                                 ]
                             ) ?>
 
                         <?= Html::endForm() ?>
+                    </li>
+
+                <?php else: ?>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/site/login">
+                            Login
+                        </a>
                     </li>
 
                 <?php endif; ?>
