@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
 
 $this->title = 'Booking';
 ?>
@@ -15,6 +16,8 @@ $this->title = 'Booking';
         ['class' => 'btn btn-success']
     ) ?>
 </p>
+
+<?php Pjax::begin(); ?>
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
@@ -112,3 +115,5 @@ $this->title = 'Booking';
         ],
     ],
 ]); ?>
+
+<?php Pjax::end(); ?>
