@@ -4,75 +4,49 @@ declare(strict_types=1);
 
 namespace app\models;
 
-use yii\base\BaseObject;
+use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
-class User extends BaseObject implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface
 {
-    public int|string $id = '';
-    public string $username = '';
-    public string $passwordHash = '';
-    public string $authKey = '';
-    public string $accessToken = '';
-    private static array $_users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            // password: admin
-            'passwordHash' => '$2y$13$gYAywKSkhfZDq9FLNdm7buKnvlRxDexf5xipSMAxQPDUxpaptmZJu',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            // password: demo
-            'passwordHash' => '$2y$13$alRLq1PGVMlGYwS/Y3iy3ewQns1Z8ol8Iq6Zb5k7ZwEhblA1aL29y',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
+    public static function tableName(): string
+    {
+        return 'user';
+    }
+
     /**
-     * {@inheritdoc}
+     * Cari user berdasarkan ID
      */
     public static function findIdentity($id): static|null
     {
-        return isset(self::$_users[$id]) ? new static(self::$_users[$id]) : null;
+        return static::findOne($id);
     }
 
     /**
-     * {@inheritdoc}
+     * Cari user berdasarkan access token
      */
-    public static function findIdentityByAccessToken($token, $type = null): static|null
-    {
-        foreach (self::$_users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
+    public static function findIdentityByAccessToken(
+        $token,
+        $type = null
+    ): static|null {
+        return static::findOne([
+            'access_token' => $token,
+        ]);
     }
 
     /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
+     * Cari user berdasarkan username
      */
-    public static function findByUsername(string $username): static|null
-    {
-        foreach (self::$_users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+    public static function findByUsername(
+        string $username
+    ): static|null {
+        return static::findOne([
+            'username' => $username,
+        ]);
     }
 
     /**
-     * {@inheritdoc}
+     * ID user
      */
     public function getId(): int|string
     {
@@ -80,18 +54,26 @@ class User extends BaseObject implements IdentityInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Auth key
      */
     public function getAuthKey(): string|null
     {
-        return $this->authKey;
+        return $this->auth_key;
     }
 
     /**
-     * {@inheritdoc}
+     * Validasi auth key
      */
     public function validateAuthKey($authKey): bool
     {
-        return $this->authKey === $authKey;
+        return $this->auth_key === $authKey;
+    }
+
+    /**
+     * Password hash
+     */
+    public function getPasswordHash(): string
+    {
+        return $this->password_hash;
     }
 }

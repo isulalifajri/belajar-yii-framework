@@ -42,20 +42,56 @@ $this->beginPage();
             <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/">
+                        Home
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/service">Services</a>
+                    <a class="nav-link" href="/service">
+                        Services
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/barber">Barber</a>
+                    <a class="nav-link" href="/barber">
+                        Barber
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/booking">Booking</a>
+                    <a class="nav-link" href="/booking">
+                        Booking
+                    </a>
                 </li>
+
+                <?php if (Yii::$app->user->isGuest): ?>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/site/login">
+                            Login
+                        </a>
+                    </li>
+
+                <?php else: ?>
+
+                    <li class="nav-item">
+                        <?= Html::beginForm(
+                            ['/site/logout'],
+                            'post'
+                        ) ?>
+
+                            <?= Html::submitButton(
+                                'Logout (' . Yii::$app->user->identity->username . ')',
+                                [
+                                    'class' => 'nav-link btn btn-link',
+                                ]
+                            ) ?>
+
+                        <?= Html::endForm() ?>
+                    </li>
+
+                <?php endif; ?>
 
             </ul>
 

@@ -8,6 +8,15 @@ jalankan : `php yii serve --port=8282`
 
 **buat tabel di yii2**
 
-jalankan: `php yii migrate/create create_barber_table`
+jalankan: 
+````
+php yii migrate/create create_barber_table
+php yii migrate/create create_user_table
+````
 
 lalu: `php yii migrate`
+
+membuat user dengan terminal
+````
+php yii user/create admin admin123
+````
