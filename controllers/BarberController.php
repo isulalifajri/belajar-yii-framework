@@ -6,17 +6,24 @@ use Yii;
 use yii\web\Controller;
 use app\models\Barber;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 
 class BarberController extends Controller
 {
-    // public function actionIndex()
-    // {
-    //     $barbers = Barber::find()->all();
-
-    //     return $this->render('index', [
-    //         'barbers' => $barbers,
-    //     ]);
-    // } cara lama
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex()
     {

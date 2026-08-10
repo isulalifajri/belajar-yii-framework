@@ -6,9 +6,25 @@ use Yii;
 use yii\web\Controller;
 use app\models\Service;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 
 class ServiceController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+    
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([

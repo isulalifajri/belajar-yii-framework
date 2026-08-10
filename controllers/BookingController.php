@@ -11,9 +11,25 @@ use app\models\BookingSearch;
 use yii\helpers\ArrayHelper;
 use app\models\Barber;
 use app\models\Service;
+use yii\filters\AccessControl;
 
 class BookingController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
         $searchModel = new BookingSearch();
