@@ -53,4 +53,27 @@ class RbacController extends Controller
 
         echo "RBAC berhasil dibuat.\n";
     }
+    
+    public function actionAssignStaff($userId)
+    {
+        $auth = Yii::$app->authManager;
+    
+        $staff = $auth->getRole('staff');
+    
+        if ($staff === null) {
+            $this->stderr("Role staff belum dibuat.\n");
+    
+            return self::EXIT_CODE_ERROR;
+        }
+    
+        $auth->revokeAll($userId);
+    
+        $auth->assign($staff, $userId);
+    
+        $this->stdout(
+            "Role staff berhasil diberikan ke user ID {$userId}.\n"
+        );
+    
+        return self::EXIT_CODE_NORMAL;
+    }
 }

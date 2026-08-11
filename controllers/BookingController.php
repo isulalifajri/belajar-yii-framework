@@ -23,7 +23,7 @@ class BookingController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['manageBooking'],
                     ],
                 ],
             ],

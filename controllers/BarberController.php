@@ -18,7 +18,8 @@ class BarberController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['manageBarber'],
+                        // 'roles' => ['@'],
                     ],
                 ],
             ],

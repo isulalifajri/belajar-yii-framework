@@ -27,4 +27,7 @@ php yii migrate/create add_role_to_user_table
 php yii migrate/create set_admin_role
 
 php yii rbac/init
+
+php yii user/create staff staff123
+php yii rbac/assign-staff 2
 ````

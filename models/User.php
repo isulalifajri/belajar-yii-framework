@@ -81,4 +81,20 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->role;
     }
+
+    public function setPassword(string $password): void
+    {
+        $this->password_hash = password_hash(
+            $password,
+            PASSWORD_DEFAULT
+        );
+    }
+
+    public function validatePassword(string $password): bool
+    {
+        return password_verify(
+            $password,
+            $this->password_hash
+        );
+    }
 }
