@@ -49,23 +49,38 @@ $this->beginPage();
 
                 <?php if (!Yii::$app->user->isGuest): ?>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/service">
-                            Services
-                        </a>
-                    </li>
+                    <?php if (Yii::$app->user->can('manageService')): ?>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/barber">
-                            Barber
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/service">
+                                Services
+                            </a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/booking">
-                            Booking
-                        </a>
-                    </li>
+                    <?php endif; ?>
+
+
+                    <?php if (Yii::$app->user->can('manageBarber')): ?>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/barber">
+                                Barber
+                            </a>
+                        </li>
+
+                    <?php endif; ?>
+
+
+                    <?php if (Yii::$app->user->can('manageBooking')): ?>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/booking">
+                                Booking
+                            </a>
+                        </li>
+
+                    <?php endif; ?>
+
 
                     <li class="nav-item">
                         <?= Html::beginForm(
